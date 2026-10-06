@@ -39,7 +39,19 @@ public class Program
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
             // ثبت سرویس‌ها
-            builder.Services.AddScoped<IDrugService, DrugService>();
+            // ... سایر سرویس‌ها
+
+// ثبت سرویس‌های مربوط به دارو (که قبلاً داشتید)
+builder.Services.AddScoped<IDrugService, DrugService>();
+
+            // --- این خط را اضافه کنید ---
+            builder.Services.AddScoped<ICustomerService, CustomerService>();
+
+            // ثبت ریپازیتوری‌ها
+            builder.Services.AddScoped<IDrugRepository, DrugRepository>();
+            builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+
+            // ... بقیه کدها
 
             // ثبت AutoMapper
             builder.Services.AddAutoMapper(typeof(DrugProfile));
