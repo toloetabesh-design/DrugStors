@@ -1,14 +1,34 @@
-﻿using Microsoft.EntityFrameworkCore;
-using DrugStore.Domain.Entities;
+﻿using DrugStore.Domain.Entities; // یا هرجایی که موجودیت‌های شماست
+using DrugStore.Persistence;
+using System.Linq;
 
-public class Seed
+namespace DrugStore.Persistence
 {
-    public static void SeedData(ModelBuilder modelBuilder)
+    public static class DbInitializer
     {
-        modelBuilder.Entity<Drug>().HasData(
-            new Drug { Id = 1, Name = "استامینوفن", Price = 50000 },
-            new Drug { Id = 2, Name = "ایبوپروفن", Price = 70000 },
-            new Drug { Id = 3, Name = "آموکسی‌سیلین", Price = 90000 }
-        );
+        public static void Seed(AppDbContext context)
+        {
+            // ۱. بررسی می‌کنیم آیا دیتابیس خالی است یا نه
+            if (context.Customers.Any()) return; // اگر دیتابیس دیتا دارد، چیزی اضافه نکن
+
+            // ۲. تعریف داده‌های اولیه برای کاستومر
+            var customers = new[]
+            {
+                new Customer { FullName = "علی احمدی", Email = "ali@test.com" },
+                new Customer { FullName = "سارا محمدی", Email = "sara@test.com" }
+            };
+            context.Customers.AddRange(customers);
+
+            // ۳. تعریف داده‌های اولیه برای دارو
+            var drugs = new[]
+            {
+                new Drug { Name = "استامینوفن", Price = 10000 },
+                new Drug { Name = "آموکسی‌سیلین", Price = 25000 }
+            };
+            context.Drugs.AddRange(drugs);
+
+            // ۴. ذخیره تغییرات
+            context.SaveChanges();
+        }
     }
 }
