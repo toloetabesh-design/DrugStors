@@ -45,7 +45,6 @@ try
 
             context.Database.EnsureCreated();
 
-            // فراخوانی کلاس Seed (باید این کلاس را در لایه Persistence ساخته باشید)
             DrugStore.Persistence.DbInitializer.Seed(context);
 
             Console.WriteLine("Database seeded successfully!");
@@ -56,9 +55,7 @@ try
             errorLogger.LogError(ex, "An error occurred while seeding the database.");
         }
     }
-    // ==========================================================
 
-    // ۷. تنظیمات Middleware
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
