@@ -30,16 +30,12 @@ try
 
     builder.Services.AddAutoMapper(typeof(DrugProfile));
 
-    // ۶. تنظیمات Swagger و Controllers
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
     var app = builder.Build();
 
-    // ==========================================================
-    // بخش اجرای عملیات Seed (داده‌های اولیه)
-    // ==========================================================
     using (var scope = app.Services.CreateScope())
     {
         var services = scope.ServiceProvider;
@@ -47,7 +43,6 @@ try
         {
             var context = services.GetRequiredService<AppDbContext>();
 
-            // ساخت دیتابیس اگر وجود ندارد
             context.Database.EnsureCreated();
 
             // فراخوانی کلاس Seed (باید این کلاس را در لایه Persistence ساخته باشید)
