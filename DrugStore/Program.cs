@@ -6,7 +6,7 @@ using DrugStore.Persistence.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
-
+using DrugStore.Persistence; // مطمئن شوید این فضای نام برای AppDbContext درست است
 
 var logger = LogManager.Setup().LoadConfigurationFromFile("nlog.config").GetCurrentClassLogger();
 
@@ -14,38 +14,61 @@ try
 {
     var builder = WebApplication.CreateBuilder(args);
 
-    // ۲. پیکربندی NLog برای ASP.NET Core
+    // ۱. پیکربندی NLog
     builder.Logging.ClearProviders();
     builder.Host.UseNLog();
 
-    // ۳. تنظیمات دیتابیس (SQL Server)
-    builder.Services.AddDbContext<DrugStore.Persistence.AppDbContext>(options =>
+    // ۲. تنظیمات دیتابیس
+    builder.Services.AddDbContext<AppDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-    // ۴. ثبت ریپازیتوری‌ها (Persistence Layer)
-    // ثبت تمامی ریپازیتوری‌های مربوط به Drug, Customer, Order و Agent
+    // ۳. ثبت ریپازیتوری‌ها
     builder.Services.AddScoped<IDrugRepository, DrugRepository>();
     builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
     builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-    
-    // ۵. ثبت سرویس‌ها (Application Layer)
-    // ثبت تمامی سرویس‌های مربوط به Drug, Customer, Order و Agent
+
+    // ۴. ثبت سرویس‌ها
     builder.Services.AddScoped<IDrugService, DrugService>();
     builder.Services.AddScoped<ICustomerService, CustomerService>();
     builder.Services.AddScoped<IOrderService, OrderService>();
-    
 
-    // ۶. ثبت AutoMapper (برای تبدیل Entity به DTO)
+    // ۵. ثبت AutoMapper
     builder.Services.AddAutoMapper(typeof(DrugProfile));
 
-    // ۷. تنظیمات Swagger برای تست API
+    // ۶. تنظیمات Swagger و Controllers
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
 
     var app = builder.Build();
 
-    // ۸. تنظیمات Middleware (ترتیب اجرا بسیار حیاتی است)
+    // ==========================================================
+    // بخش اجرای عملیات Seed (داده‌های اولیه)
+    // ==========================================================
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        try
+        {
+            var context = services.GetRequiredService<AppDbContext>();
+
+            // ساخت دیتابیس اگر وجود ندارد
+            context.Database.EnsureCreated();
+
+            // فراخوانی کلاس Seed (باید این کلاس را در لایه Persistence ساخته باشید)
+            DrugStore.Persistence.DbInitializer.Seed(context);
+
+            Console.WriteLine("Database seeded successfully!");
+        }
+        catch (Exception ex)
+        {
+            var errorLogger = services.GetRequiredService<ILogger<Program>>();
+            errorLogger.LogError(ex, "An error occurred while seeding the database.");
+        }
+    }
+    // ==========================================================
+
+    // ۷. تنظیمات Middleware
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
@@ -65,7 +88,5 @@ catch (Exception exception)
 }
 finally
 {
-
     LogManager.Shutdown();
 }
-
