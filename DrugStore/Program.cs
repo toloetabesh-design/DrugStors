@@ -7,7 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
 
-// ۱. تنظیمات اولیه NLog برای ثبت خطاهای احتمالی قبل از ساخت Builder
+
+
+
+
 var logger = LogManager.Setup().LoadConfigurationFromFile("nlog.config").GetCurrentClassLogger();
 
 try
