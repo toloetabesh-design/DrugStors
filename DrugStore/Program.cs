@@ -6,7 +6,7 @@ using DrugStore.Persistence.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
-using DrugStore.Persistence; // مطمئن شوید این فضای نام برای AppDbContext درست است
+using DrugStore.Persistence; 
 
 var logger = LogManager.Setup().LoadConfigurationFromFile("nlog.config").GetCurrentClassLogger();
 
@@ -14,25 +14,20 @@ try
 {
     var builder = WebApplication.CreateBuilder(args);
 
-    // ۱. پیکربندی NLog
     builder.Logging.ClearProviders();
     builder.Host.UseNLog();
 
-    // ۲. تنظیمات دیتابیس
     builder.Services.AddDbContext<AppDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-    // ۳. ثبت ریپازیتوری‌ها
     builder.Services.AddScoped<IDrugRepository, DrugRepository>();
     builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
     builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
-    // ۴. ثبت سرویس‌ها
     builder.Services.AddScoped<IDrugService, DrugService>();
     builder.Services.AddScoped<ICustomerService, CustomerService>();
     builder.Services.AddScoped<IOrderService, OrderService>();
 
-    // ۵. ثبت AutoMapper
     builder.Services.AddAutoMapper(typeof(DrugProfile));
 
     // ۶. تنظیمات Swagger و Controllers
