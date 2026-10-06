@@ -19,3 +19,12 @@
 2026-10-06 12:22:37.6084 Info Registered target NLog.Targets.FileTarget(Name=logfile)
 2026-10-06 12:22:37.6422 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.2.1.5860. Product version: 6.2.1+b058028290f245d12c30cb2910c2a574558ed9c6. GlobalAssemblyCache: False
 2026-10-06 12:22:37.7663 Info Configuration initialized: TargetNames=logfile, ConfigItems=16, AutoReload=true, FilePath=D:\Projects\DrugStors\DrugStore\bin\Debug\net8.0\nlog.config
+2026-10-06 12:40:35.1756 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2026-10-06 12:40:35.2024 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.2.1.5860. Product version: 6.2.1+b058028290f245d12c30cb2910c2a574558ed9c6. GlobalAssemblyCache: False
+2026-10-06 12:40:35.3240 Info Configuration initialized: TargetNames=logfile, ConfigItems=16, AutoReload=true, FilePath=D:\Projects\DrugStors\DrugStore\bin\Debug\net8.0\nlog.config
+2026-10-06 14:10:07.9791 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2026-10-06 14:10:08.0059 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.2.1.5860. Product version: 6.2.1+b058028290f245d12c30cb2910c2a574558ed9c6. GlobalAssemblyCache: False
+2026-10-06 14:10:08.1081 Info Configuration initialized: TargetNames=logfile, ConfigItems=16, AutoReload=true, FilePath=D:\Projects\DrugStors\DrugStore\bin\Debug\net8.0\nlog.config
+2026-10-06 14:27:54.7702 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2026-10-06 14:27:54.7951 Info NLog, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 6.2.1.5860. Product version: 6.2.1+b058028290f245d12c30cb2910c2a574558ed9c6. GlobalAssemblyCache: False
+2026-10-06 14:27:54.9460 Info Configuration initialized: TargetNames=logfile, ConfigItems=16, AutoReload=true, FilePath=D:\Projects\DrugStors\DrugStore\bin\Debug\net8.0\nlog.config
