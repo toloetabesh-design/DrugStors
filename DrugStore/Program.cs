@@ -8,9 +8,6 @@ using NLog;
 using NLog.Web;
 
 
-
-
-
 var logger = LogManager.Setup().LoadConfigurationFromFile("nlog.config").GetCurrentClassLogger();
 
 try
@@ -63,13 +60,12 @@ try
 }
 catch (Exception exception)
 {
-    // ثبت خطاهای بحرانی در هنگام بالا آمدن برنامه
     logger.Error(exception, "Application terminated unexpectedly during startup");
     throw;
 }
 finally
 {
-    // اطمینان از تخلیه تمام لاگ‌ها در فایل قبل از بسته شدن برنامه
+
     LogManager.Shutdown();
 }
 
