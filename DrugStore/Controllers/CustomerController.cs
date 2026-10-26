@@ -10,10 +10,8 @@ namespace DrugStore.Presentation.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerService _customerService;
-        // ۱. تعریف لاگر اختصاصی برای این کنترلر
         private readonly ILogger<CustomerController> _logger;
 
-        // ۲. دریافت لاگر از طریق سازنده (Dependency Injection)
         public CustomerController(ICustomerService customerService, ILogger<CustomerController> logger)
         {
             _customerService = customerService;
