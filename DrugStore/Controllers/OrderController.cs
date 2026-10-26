@@ -1,7 +1,7 @@
 ﻿using DrugStore.Application.BusinessServices.Interfaces;
 using DrugStore.Application.Dtos;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging; // اضافه شد
+using Microsoft.Extensions.Logging; 
 
 namespace DrugStore.Presentation.Controllers
 {
@@ -10,10 +10,8 @@ namespace DrugStore.Presentation.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;
-        // ۱. تعریف لاگر
         private readonly ILogger<OrderController> _logger;
 
-        // ۲. تزریق لاگر از طریق سازنده
         public OrderController(IOrderService orderService, ILogger<OrderController> logger)
         {
             _orderService = orderService;
@@ -55,7 +53,6 @@ namespace DrugStore.Presentation.Controllers
             }
             catch (Exception ex)
             {
-                // اینجا اگر مثلاً ID مشتری اشتباه باشد، دلیل دقیق در لاگ ثبت می‌شود
                 _logger.LogError(ex, "خطا در ثبت سفارش جدید: {@Order}", order);
                 return BadRequest("خطا در ثبت سفارش. لطفا اطلاعات را بررسی کنید.");
             }
@@ -90,7 +87,6 @@ namespace DrugStore.Presentation.Controllers
             }
             catch (Exception ex)
             {
-                // در سفارش‌ها، احتمال خطای Foreign Key بسیار بالا است (مثلاً سفارش متصل به یک محصول است)
                 _logger.LogError(ex, "خطای بحرانی در حذف سفارش با آی‌دی: {Id}", id);
                 return StatusCode(500, "خطا در عملیات حذف سفارش. ممکن است این سفارش با داده‌های دیگر در ارتباط باشد.");
             }
