@@ -1,7 +1,7 @@
 ﻿using DrugStore.Application.BusinessServices.Interfaces;
 using DrugStore.Application.Dtos;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging; // اضافه شد
+using Microsoft.Extensions.Logging; 
 
 namespace DrugStore.Presentation.Controllers
 {
@@ -10,10 +10,9 @@ namespace DrugStore.Presentation.Controllers
     public class DrugController : ControllerBase
     {
         private readonly IDrugService _drugService;
-        // ۱. تعریف لاگر
         private readonly ILogger<DrugController> _logger;
 
-        // ۲. تزریق لاگر از طریق سازنده
+        // ۲. تزریق لاگر از ریق سازنده
         public DrugController(IDrugService drugService, ILogger<DrugController> logger)
         {
             _drugService = drugService;
@@ -89,7 +88,6 @@ namespace DrugStore.Presentation.Controllers
             }
             catch (Exception ex)
             {
-                // این بخش برای پیدا کردن دلیل خطای ۵00 (مثل رابطه کلید خارجی) حیاتی است
                 _logger.LogError(ex, "خطای بحرانی در حذف دارو با آی‌دی: {Id}", id);
                 return StatusCode(500, "خطای داخلی سرور در عملیات حذف.");
             }
