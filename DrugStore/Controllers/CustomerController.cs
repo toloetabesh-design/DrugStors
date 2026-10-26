@@ -1,7 +1,7 @@
 ﻿using DrugStore.Application.BusinessServices.Interfaces;
 using DrugStore.Application.Dtos;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging; // اضافه کردن این برای ILogger
+using Microsoft.Extensions.Logging; 
 
 namespace DrugStore.Presentation.Controllers
 {
@@ -88,8 +88,6 @@ namespace DrugStore.Presentation.Controllers
             }
             catch (Exception ex)
             {
-                // اینجا همان جایی است که قبلاً با خطای ۵00 مواجه می‌شدی. 
-                // حالا با این لاگ، دلیل دقیق خطا (مثلاً Foreign Key) در فایل Log ذخیره می‌شود.
                 _logger.LogError(ex, "خطای بحرانی در حذف مشتری با آی‌دی: {Id}", id);
                 return StatusCode(500, "خطای داخلی سرور در هنگام حذف.");
             }
